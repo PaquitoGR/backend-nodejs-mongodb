@@ -26,9 +26,29 @@ function Agente(nombre) {
 }
 
 // heredar las propiedades de las personas
-Agente.prototype = Object.create(Persona.prototype);
-Agente.prototype.constructor = Agente;
+// Agente.prototype = Object.create(Persona.prototype);
+// Agente.prototype.constructor = Agente;
+Object.setPrototypeOf(Agente.prototype, Persona.prototype);
 
 const smith = new Agente("Smith");
 
 smith.saluda();
+
+// Herencia múltiple ----------------------
+
+// Quiero que los agentes hereden tanto de las personas, como de los Superheroes
+
+function Superheroe() {
+  this.vuela = function () {
+    console.log(this.nombre, "Vuela");
+  };
+}
+
+// Copiar todas las propiedades de los Superheroes al prototipo del Agente
+Object.assign(Agente.prototype, new Superheroe());
+
+smith.vuela();
+
+console.log(smith);
+console.log(Agente.prototype);
+console.log(Persona.prototype);
