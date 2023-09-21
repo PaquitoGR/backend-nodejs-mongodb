@@ -15,8 +15,33 @@ router.get("/", function (req, res, next) {
     { nombre: "Jones", edad: 27 },
   ];
 
-  res.render("index");
+  //res.render("index");
   res.render("index", { title: "Express" });
+});
+
+// GET /parametro_en_ruta/66
+router.get("/parametro_en_ruta/:numero", (req, res, next) => {
+  const numero = req.params.numero;
+
+  res.send("he recibido el número: " + numero);
+});
+
+router.get("/parametro_opcional/:numero?", (req, res, next) => {
+  const numero = req.params.numero;
+
+  res.send("(opcional) he recibido el número: " + numero);
+});
+
+// GET /producto/:nombre/talla/:talla/color/:color
+
+router.get("/producto/:nombre/talla/:talla/color/:color", (req, res, next) => {
+  console.log(req.params);
+  // const nombre = req.params.nombre;
+  // const talla = req.params.talla;
+  // const color = req.params.color;
+  const { nombre, talla, color } = req.params;
+
+  res.send(`Me pediste ${nombre}, talla ${talla}, color ${color}`);
 });
 
 module.exports = router;
