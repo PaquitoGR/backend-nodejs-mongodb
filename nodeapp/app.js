@@ -16,7 +16,7 @@ app.set("view engine", "ejs");
 // middlewares
 app.use(logger("dev"));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: false })); // Parsea el body en formato urlencoded
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 //app.use('pdfs', express.static(path.join(__dirname, "/pdfs")));
@@ -36,6 +36,13 @@ app.use(function (req, res, next) {
 
 // error handler
 app.use(function (err, req, res, next) {
+  // Comprobar si es un error de validación
+  if (err.array) {
+    const errorInfo = err.errors[0]; // err.array({ onlyFirstError: true})[0] <-- otra forma
+    console.log(errorInfo);
+    err.message = `Error en ${errorInfo.location}, paránetro ${errorInfo.path} ${errorInfo.msg}`;
+    err.status = 422;
+  }
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get("env") === "development" ? err : {};
