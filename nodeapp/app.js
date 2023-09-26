@@ -6,6 +6,10 @@ var logger = require("morgan");
 
 require('./lib/connectMongoose');
 
+const Agente = require('./models/Agente');
+Agente.find().then((results) => {
+  console.log(results);
+}).catch(err => console.log(err));
 // var indexRouter = require("./routes/index");
 // var usersRouter = require("./routes/users");
 
