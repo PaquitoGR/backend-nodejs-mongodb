@@ -32,6 +32,11 @@ router.get('/', async (req, res, next) => {
     }
 
     const agentes = await Agente.lista(filtro, skip, limit, sort, fields);
+    
+    // probamos un método de instancia
+    agentes.forEach(agente => {
+      agente.saluda();
+    });
 
     res.json({ results: agentes })
 

@@ -16,9 +16,13 @@ agenteSchema.statics.lista = function(filtro, skip, limit, sort, fields) {
   query.limit(limit);
   query.sort(sort);
   query.select(fields);
-
   return query.exec();
 }
+//  - De instancia: método que tienen las instancias (p.ej Agente.saluda())
+agenteSchema.methods.saluda = function() {  // no podría ser arrow function,que su this sería global
+  console.log('Hola, soy el agente ' + this.name);  // mongoose hace la asignación del this
+}
+
 
 // crear el modelo de agente
 const Agente = mongoose.model('Agente', agenteSchema);
