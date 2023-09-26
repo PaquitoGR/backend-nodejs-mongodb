@@ -6,7 +6,29 @@ const Agente = require('../../models/Agente');
 // Devuelve una lista de agentes
 router.get('/', async (req, res, next) => {
   try {
-    const agentes = await Agente.find();
+    // filtros
+    // http://127.0.0.1:3000/api/agentes?name=Jones
+    const filterByName = req.query.name;
+    const filtreByAge = req.query.age;
+    // paginación
+    // http://127.0.0.1:3000/api/agentes?skip=2&limit=2
+    const skip = req.query.skip;
+    const limit = req.query.limit;
+    // ordenación
+    // http://127.0.0.1:3000/api/agentes?sort=-age%20name
+    const sort = req.query.sort;
+
+    const filtro = {};
+
+    if (filterByName) {
+      filtro.name = filterByName;
+    }
+
+    if (filtreByAge) {
+      filtro.age = filtreByAge;
+    }
+
+    const agentes = await Agente.lista(filtro, skip, limit, sort);
 
     res.json({ results: agentes })
 
@@ -70,12 +92,12 @@ router.delete('/:id', async (req, res, next) => {
   try {
     const id = req.params.id;
 
-    await agente.deleteOne({ _id: id });
+    await Agente.deleteOne({ _id: id });
 
     res.json();
   } catch (err) {
     next(err);
   }
-});
+})
 
 module.exports = router;
