@@ -12,6 +12,13 @@ $ npm install
 
 Review database connection on /lib/connectMongoose.js (see "Start a MondgoDB server")
 
+Load initial data: 
+
+```sh
+# WARNING: this command deletes all the data in the database and creates default data
+$ npm run init-db
+```
+
 ## Start
 
 In production:

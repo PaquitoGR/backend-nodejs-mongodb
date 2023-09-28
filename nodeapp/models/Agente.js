@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 
 // definir el esquema de los agentes
 const agenteSchema = mongoose.Schema({
-  name: String,
-  age: { type: Number, min: 18, max: 120 }
+  name: { type: String, index: true },
+  age: { type: Number, index: true, min: 18, max: 120 }
 }, {
   // collection: 'agentes' // para forzar un nombre concreto de colección
 });
@@ -19,9 +19,9 @@ agenteSchema.statics.lista = function(filtro, skip, limit, sort, fields) {
   return query.exec();
 }
 //  - De instancia: método que tienen las instancias (p.ej Agente.saluda())
-agenteSchema.methods.saluda = function() {  // no podría ser arrow function,que su this sería global
-  console.log('Hola, soy el agente ' + this.name);  // mongoose hace la asignación del this
-}
+// agenteSchema.methods.saluda = function() {  // no podría ser arrow function,que su this sería global
+//   console.log('Hola, soy el agente ' + this.name);  // mongoose hace la asignación del this
+// }
 
 
 // crear el modelo de agente
