@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/PaquitoGR/backend-nodejs-mongodb#readme",
   "dependencies": {
+    "basic-auth": "^2.0.1",
     "chance": "^1.1.11"
   }
 }
